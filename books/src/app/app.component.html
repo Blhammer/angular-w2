@@ -4,12 +4,25 @@
       <div class="book">
         @if (!isRatingCompleted) {
         <div>
-          <h2>Заглавие: {{ books[currentBookIndex].title }}</h2>
-          <p>Описание: {{ books[currentBookIndex].description }}</p>
-          <p>Автор: {{ books[currentBookIndex].author }}</p>
+          <h2>
+            Заглавие:
+            <input type="text" [(ngModel)]="books[currentBookIndex].title" />
+          </h2>
           <p>
-            Рейтинг:
-            <span *ngIf="currentRating > 0">{{ currentRating }}</span>
+            Описание:
+            <input
+              type="text"
+              [(ngModel)]="books[currentBookIndex].description"
+            />
+          </p>
+          <p>
+            Автор:
+            <input type="text" [(ngModel)]="books[currentBookIndex].author" />
+          </p>
+          <p>
+            Рейтинг: @if(currentRating > 0) {
+            <span>{{ currentRating.toFixed(1) }}</span>
+            }
             <span *ngIf="currentRating === 0">Все още не оценено</span>
           </p>
           <div>
@@ -22,7 +35,7 @@
           </div>
         </div>
         } @if (isRatingCompleted) {
-        <div *ngIf="isRatingCompleted">
+        <div>
           <p>Вие оценихте всички книги успешно.</p>
           <button (click)="finishRating('restart')">
             Искам да ги оценя отново

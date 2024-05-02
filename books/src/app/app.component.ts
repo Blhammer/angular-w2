@@ -8,6 +8,7 @@ interface Book {
   description: string;
   author: string;
   rating: number;
+  numberOfRatings?: number;
 }
 
 @Component({
@@ -70,8 +71,17 @@ export class AppComponent implements OnInit {
   }
 
   rateBook(rating: number): void {
-    this.books[this.currentBookIndex].rating = rating;
-    this.currentRating = rating;
+    const book = this.books[this.currentBookIndex];
+    const previousRating = book.rating;
+    const numberOfRatings = book.numberOfRatings || 0;
+
+    const totalRating = previousRating * numberOfRatings + rating;
+    const newNumberOfRatings = numberOfRatings + 1;
+    book.rating = totalRating / newNumberOfRatings;
+    book.numberOfRatings = newNumberOfRatings;
+
+    this.currentRating = book.rating;
+
     this.currentBookIndex++;
     if (this.currentBookIndex >= this.books.length) {
       this.isRatingCompleted = true;
