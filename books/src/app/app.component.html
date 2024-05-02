@@ -1,0 +1,36 @@
+<main class="main">
+  <div class="content">
+    <div class="left-side">
+      <div class="book">
+        @if (!isRatingCompleted) {
+        <div>
+          <h2>Заглавие: {{ books[currentBookIndex].title }}</h2>
+          <p>Описание: {{ books[currentBookIndex].description }}</p>
+          <p>Автор: {{ books[currentBookIndex].author }}</p>
+          <p>
+            Рейтинг:
+            <span *ngIf="currentRating > 0">{{ currentRating }}</span>
+            <span *ngIf="currentRating === 0">Все още не оценено</span>
+          </p>
+          <div>
+            <button
+              *ngFor="let option of ratingOptions"
+              (click)="rateBook(option)"
+            >
+              {{ option }}
+            </button>
+          </div>
+        </div>
+        } @if (isRatingCompleted) {
+        <div *ngIf="isRatingCompleted">
+          <p>Вие оценихте всички книги успешно.</p>
+          <button (click)="finishRating('restart')">
+            Искам да ги оценя отново
+          </button>
+          <button (click)="finishRating('stop')">Не ок съм</button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</main>
